@@ -66,6 +66,8 @@
 <p>網站連結:<a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/61c628235870a06becac1f8b7028e229/raw/bd9b4526800592df8d9fba9187f4594f5cc82518/w11_circle_pattern.2py">https://mdecp2024.github.io/hw-40831154/content/Brython.html</a></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/B_U4FdBlmzU?si=tCF21KMvVcj5Li5T" title="YouTube video player" width="560"></iframe></p>
 <p>心得:詢問GPT，如何把程式寫出來，需要一個個測試出想要的程式編碼來，得出的程式需要多花點時間去了解程式每行的意義。</p><h3>w12</h3>
+<p>Brython網站連結:</p>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/bfec0cdb8a19e34bb48afcb770c3b38a/raw/f1cadd69a9cf28ff035241cece9a286a948f2931/w12">https://mdecp2024.github.io/hw-40831154/content/Brython.html</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">n = 5 # 總共的行數
 space = '_'
 '''
@@ -81,7 +83,37 @@ for i in range(n):  # 對於每一行
     # 印出空格
     #print(space * (n - i - 1), end='')
     print("目前的數字為 " + str(i))</pre>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/1-RPYaybLIE?si=ZO6Ko58lTCJpPAYd" title="YouTube video player" width="560"></iframe></p><h1>HW 2</h1>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/1-RPYaybLIE?si=ZO6Ko58lTCJpPAYd" title="YouTube video player" width="560"></iframe></p>
+<h3>w13_hw</h3>
+<!-- 導入 brython 程式庫 -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- 啟動 Brython -->
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+<div id="brython_div1"></div>
+<p>
+<script type="text/python">
+ 
+from browser import html 
+from browser import document as doc
+# 利用 html 建立 canvas 超文件物件 
+canvas = html.CANVAS(width=400, height=400)
+brython_div = doc["brython_div1"]
+brython_div <=canvas
+ctx = canvas.getContext("2d") 
+ctx.lineWidth = 1 
+ctx.strokeStyle = 'blue' 
+ctx.beginPath() 
+ctx.moveTo(10, 10) 
+ctx.lineTo(100, 100) 
+ctx.stroke() 
+</scrip>
+</script>
+</p><h1>HW 2</h1>
 <h4>主題: Python 的數列、判斷式與重複迴圈 (20%)<span style="background-color: #ffff99;"><br/></span></h4>
 <p style="padding-left: 30px;">Python 課程教材: <a href="https://www.learnpythonwithjupyter.com/">https://www.learnpythonwithjupyter.com/</a> - PART 2 and Part 3</p>
 <hr/>
