@@ -84,7 +84,103 @@ for i in range(n):  # 對於每一行
     #print(space * (n - i - 1), end='')
     print("目前的數字為 " + str(i))</pre>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/1-RPYaybLIE?si=ZO6Ko58lTCJpPAYd" title="YouTube video player" width="560"></iframe></p>
-<h3>w13_hw</h3>
+<h3>w13</h3>
+<p><!-- 導入 brython 程式庫 -->
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+<!-- 啟動 Brython -->
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<div id="brython_div1"></div>
+<script type="text/python">
+from browser import html
+from browser import document as doc
+import random  # 用於隨機選擇彩虹顏色
+
+# 彩虹顏色列表
+rainbow_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+
+# 建立 canvas 元素
+canvas = html.CANVAS(width=600, height=600)  # 畫布大小
+brython_div = doc["brython_div1"]
+brython_div <= canvas
+
+ctx = canvas.getContext("2d")
+ctx.lineWidth = 1
+
+# 繪製矩形 (紅色邊框)
+ctx.strokeStyle = 'red'
+ctx.beginPath()
+ctx.rect(100, 100, 200, 200)  # 第一個矩形
+ctx.rect(200, 200, 200, 200)  # 第二個矩形
+ctx.stroke()
+
+# 填充封閉區域的顏色
+# 區域1：第一個矩形內部不包含重疊部分 (黃色)
+ctx.fillStyle = 'yellow'
+ctx.beginPath()
+ctx.moveTo(100, 100)
+ctx.lineTo(200, 100)
+ctx.lineTo(200, 200)
+ctx.lineTo(100, 200)
+ctx.closePath()
+ctx.fill()
+
+# 區域2：第二個矩形內部不包含重疊部分 (橙色)
+ctx.fillStyle = 'orange'
+ctx.beginPath()
+ctx.moveTo(300, 200)
+ctx.lineTo(400, 200)
+ctx.lineTo(400, 300)
+ctx.lineTo(300, 300)
+ctx.closePath()
+ctx.fill()
+
+# 區域3：矩形重疊部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)  # 隨機選取彩虹顏色
+ctx.beginPath()
+ctx.moveTo(200, 200)
+ctx.lineTo(300, 200)
+ctx.lineTo(300, 300)
+ctx.lineTo(200, 300)
+ctx.closePath()
+ctx.fill()
+
+# 區域4：第一個外切圓但不在矩形內的部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)
+ctx.beginPath()
+ctx.arc(200, 200, 141.4, 0, 2 * 3.14)
+ctx.moveTo(100, 100)  # 排除矩形部分
+ctx.lineTo(300, 100)
+ctx.lineTo(300, 300)
+ctx.lineTo(100, 300)
+ctx.closePath()
+ctx.fill("evenodd")
+
+# 區域5：第二個外切圓但不在矩形內的部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)
+ctx.beginPath()
+ctx.arc(300, 300, 141.4, 0, 2 * 3.14)
+ctx.moveTo(200, 200)  # 排除矩形部分
+ctx.lineTo(400, 200)
+ctx.lineTo(400, 400)
+ctx.lineTo(200, 400)
+ctx.closePath()
+ctx.fill("evenodd")
+
+# 繪製對角線 (藍色，最後繪製避免被覆蓋)
+ctx.strokeStyle = 'blue'
+ctx.beginPath()
+ctx.moveTo(100, 100)  # 起點
+ctx.lineTo(300, 300)  # 終點
+ctx.stroke()
+
+</p>
+</script><h3>w13_hw</h3>
 <!-- 導入 brython 程式庫 -->
 <script src="/static/brython.js"></script>
 <script src="/static/brython_stdlib.js"></script>
