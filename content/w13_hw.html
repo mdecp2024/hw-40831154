@@ -130,7 +130,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13.html'>w13</a><li><a href='w13_hw.html'>w13_hw</a></li></li></ul></ul><li class='has-children'><a href='HW 2.html'>HW 2</a><ul class='dropdown'><li><a href='HW 2 Exam.html'>HW 2 Exam</a></li></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
+                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13_hw.html'>w13_hw</a></li></li></ul></ul><li class='has-children'><a href='HW 2.html'>HW 2</a><ul class='dropdown'><li><a href='HW 2 Exam.html'>HW 2 Exam</a></li></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
                       </ul>
                 </nav>
               </div>
@@ -141,7 +141,103 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w13 << <a href='w13.html'>Previous</a> <a href='HW 2.html'>Next</a> >> HW 2<br /><h1>w13_hw</h1>
+    <div id="tipue_search_content">w12 << <a href='w12.html'>Previous</a> <a href='HW 2.html'>Next</a> >> HW 2<br /><h1>w13_hw</h1>
+<p><!-- 導入 brython 程式庫 -->
+<script src="./../cmsimde/static/brython.js"></script>
+<script src="./../cmsimde/static/brython_stdlib.js"></script>
+<!-- 啟動 Brython -->
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<div id="brython_div1"></div>
+<script type="text/python">
+from browser import html
+from browser import document as doc
+import random  # 用於隨機選擇彩虹顏色
+
+# 彩虹顏色列表
+rainbow_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+
+# 建立 canvas 元素
+canvas = html.CANVAS(width=600, height=600)  # 畫布大小
+brython_div = doc["brython_div1"]
+brython_div <= canvas
+
+ctx = canvas.getContext("2d")
+ctx.lineWidth = 1
+
+# 繪製矩形 (紅色邊框)
+ctx.strokeStyle = 'red'
+ctx.beginPath()
+ctx.rect(100, 100, 200, 200)  # 第一個矩形
+ctx.rect(200, 200, 200, 200)  # 第二個矩形
+ctx.stroke()
+
+# 填充封閉區域的顏色
+# 區域1：第一個矩形內部不包含重疊部分 (黃色)
+ctx.fillStyle = 'yellow'
+ctx.beginPath()
+ctx.moveTo(100, 100)
+ctx.lineTo(200, 100)
+ctx.lineTo(200, 200)
+ctx.lineTo(100, 200)
+ctx.closePath()
+ctx.fill()
+
+# 區域2：第二個矩形內部不包含重疊部分 (橙色)
+ctx.fillStyle = 'orange'
+ctx.beginPath()
+ctx.moveTo(300, 200)
+ctx.lineTo(400, 200)
+ctx.lineTo(400, 300)
+ctx.lineTo(300, 300)
+ctx.closePath()
+ctx.fill()
+
+# 區域3：矩形重疊部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)  # 隨機選取彩虹顏色
+ctx.beginPath()
+ctx.moveTo(200, 200)
+ctx.lineTo(300, 200)
+ctx.lineTo(300, 300)
+ctx.lineTo(200, 300)
+ctx.closePath()
+ctx.fill()
+
+# 區域4：第一個外切圓但不在矩形內的部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)
+ctx.beginPath()
+ctx.arc(200, 200, 141.4, 0, 2 * 3.14)
+ctx.moveTo(100, 100)  # 排除矩形部分
+ctx.lineTo(300, 100)
+ctx.lineTo(300, 300)
+ctx.lineTo(100, 300)
+ctx.closePath()
+ctx.fill("evenodd")
+
+# 區域5：第二個外切圓但不在矩形內的部分 (隨機彩虹顏色)
+ctx.fillStyle = random.choice(rainbow_colors)
+ctx.beginPath()
+ctx.arc(300, 300, 141.4, 0, 2 * 3.14)
+ctx.moveTo(200, 200)  # 排除矩形部分
+ctx.lineTo(400, 200)
+ctx.lineTo(400, 400)
+ctx.lineTo(200, 400)
+ctx.closePath()
+ctx.fill("evenodd")
+
+# 繪製對角線 (藍色，最後繪製避免被覆蓋)
+ctx.strokeStyle = 'blue'
+ctx.beginPath()
+ctx.moveTo(100, 100)  # 起點
+ctx.lineTo(300, 300)  # 終點
+ctx.stroke()
+</script>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/wEgYSLkaQNw?si=_FGtPeGDFUlhXiZF" title="YouTube video player" width="560"></iframe></p>
+<p>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</p>
 <!-- 導入 brython 程式庫 -->
 <script src="./../cmsimde/static/brython.js"></script>
 <script src="./../cmsimde/static/brython_stdlib.js"></script>
@@ -168,7 +264,8 @@ ctx.moveTo(10, 10)
 ctx.lineTo(100, 100) 
 ctx.stroke()
 </script>
-</p><br />w13 << <a href='w13.html'>Previous</a> <a href='HW 2.html'>Next</a> >> HW 2</div>
+</p>
+<br />w12 << <a href='w12.html'>Previous</a> <a href='HW 2.html'>Next</a> >> HW 2</div>
         
     <!-- footer -->
       <div class="container">
