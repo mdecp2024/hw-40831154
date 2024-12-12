@@ -101,85 +101,126 @@ brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
 <script type="text/python">
 from browser import html
 from browser import document as doc
-import random  # 用於隨機選擇彩虹顏色
+import random
 
-# 彩虹顏色列表
-rainbow_colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
-
-# 建立 canvas 元素
-canvas = html.CANVAS(width=600, height=600)  # 畫布大小
+# 設置畫布
+canvas = html.CANVAS(width=600, height=600)
 brython_div = doc["brython_div1"]
 brython_div <= canvas
 
 ctx = canvas.getContext("2d")
 ctx.lineWidth = 1
 
-# 繪製矩形 (紅色邊框)
+# 畫兩個矩形 (紅色邊框)
 ctx.strokeStyle = 'red'
 ctx.beginPath()
 ctx.rect(100, 100, 200, 200)  # 第一個矩形
 ctx.rect(200, 200, 200, 200)  # 第二個矩形
 ctx.stroke()
 
-# 填充封閉區域的顏色
-# 區域1：第一個矩形內部不包含重疊部分 (黃色)
-ctx.fillStyle = 'yellow'
-ctx.beginPath()
-ctx.moveTo(100, 100)
-ctx.lineTo(200, 100)
-ctx.lineTo(200, 200)
-ctx.lineTo(100, 200)
-ctx.closePath()
-ctx.fill()
-
-# 區域2：第二個矩形內部不包含重疊部分 (橙色)
-ctx.fillStyle = 'orange'
-ctx.beginPath()
-ctx.moveTo(300, 200)
-ctx.lineTo(400, 200)
-ctx.lineTo(400, 300)
-ctx.lineTo(300, 300)
-ctx.closePath()
-ctx.fill()
-
-# 區域3：矩形重疊部分 (隨機彩虹顏色)
-ctx.fillStyle = random.choice(rainbow_colors)  # 隨機選取彩虹顏色
-ctx.beginPath()
-ctx.moveTo(200, 200)
-ctx.lineTo(300, 200)
-ctx.lineTo(300, 300)
-ctx.lineTo(200, 300)
-ctx.closePath()
-ctx.fill()
-
-# 區域4：第一個外切圓但不在矩形內的部分 (隨機彩虹顏色)
-ctx.fillStyle = random.choice(rainbow_colors)
-ctx.beginPath()
-ctx.arc(200, 200, 141.4, 0, 2 * 3.14)
-ctx.moveTo(100, 100)  # 排除矩形部分
-ctx.lineTo(300, 100)
-ctx.lineTo(300, 300)
-ctx.lineTo(100, 300)
-ctx.closePath()
-ctx.fill("evenodd")
-
-# 區域5：第二個外切圓但不在矩形內的部分 (隨機彩虹顏色)
-ctx.fillStyle = random.choice(rainbow_colors)
-ctx.beginPath()
-ctx.arc(300, 300, 141.4, 0, 2 * 3.14)
-ctx.moveTo(200, 200)  # 排除矩形部分
-ctx.lineTo(400, 200)
-ctx.lineTo(400, 400)
-ctx.lineTo(200, 400)
-ctx.closePath()
-ctx.fill("evenodd")
-
-# 繪製對角線 (藍色，最後繪製避免被覆蓋)
+# 繪製對角線 (藍色) - 只連接第一個矩形的左上角和第一個矩形的右下角
 ctx.strokeStyle = 'blue'
 ctx.beginPath()
-ctx.moveTo(100, 100)  # 起點
-ctx.lineTo(300, 300)  # 終點
+ctx.moveTo(100, 100)  # 起點為第一個矩形的左上角 (100, 100)
+ctx.lineTo(300, 300)  # 終點為第一個矩形的右下角 (300, 300)
 ctx.stroke()
+
+# 畫兩個圓形 (黑色)
+ctx.strokeStyle = 'black'
+ctx.beginPath()
+ctx.arc(200, 200, 141.4, 0, 2 * 3.14)  # 第一個圓
+ctx.stroke()
+ctx.beginPath()
+ctx.arc(300, 300, 141.4, 0, 2 * 3.14)  # 第二個圓
+ctx.stroke()
+
+# 隨機的顏色列表，包含更多顏色選擇
+colors = [
+    "red", "orange", "yellow", "green", "blue", "indigo", "violet", 
+    "pink", "brown", "purple", "cyan", "magenta", "lime", "teal", "olive"
+]
+random.shuffle(colors)
+
+# 記錄區域顏色
+region_colors = {}
+
+# 分配顏色給每個區域，避免與鄰近區域顏色相同
+def assign_color(region, adjacent_colors):
+    available_colors = [color for color in colors if color not in adjacent_colors]
+    if region not in region_colors and available_colors:
+        chosen_color = random.choice(available_colors)  # 隨機選擇一個顏色
+        region_colors[region] = chosen_color
+    return region_colors.get(region, None)
+
+# 判斷點的位置
+def point_in_circle1(x, y):
+    cx, cy, r = 200, 200, 141.4
+    return (x - cx) ** 2 + (y - cy) ** 2 < r ** 2
+
+def point_in_circle2(x, y):
+    cx, cy, r = 300, 300, 141.4
+    return (x - cx) ** 2 + (y - cy) ** 2 < r ** 2
+
+def point_in_square1(x, y):
+    return 100 <= x <= 300 and 100 <= y <= 300
+
+def point_in_square2(x, y):
+    return 200 <= x <= 400 and 200 <= y <= 400
+
+def point_on_diagonal(x, y):
+    return y == x and 100 <= x <= 300
+
+def point_on_black_line(x, y):
+    # Check if point lies on any of the black lines (borders of rectangles or diagonal)
+    return (x == 100 and 100 <= y <= 300) or \
+           (x == 300 and 100 <= y <= 300) or \
+           (y == 100 and 100 <= x <= 300) or \
+           (y == 300 and 100 <= x <= 300) or \
+           (x == 200 and 200 <= y <= 400) or \
+           (x == 400 and 200 <= y <= 400) or \
+           (y == 200 and 200 <= x <= 400) or \
+           (y == 400 and 200 <= x <= 400) or \
+           point_on_diagonal(x, y)  # The blue diagonal line
+
+# 根據區域屬性決定顏色
+def get_region_color(x, y):
+    if point_on_black_line(x, y):
+        return None  # Don't fill colors on black lines
+
+    # If point is on the blue diagonal, we avoid blue
+    if point_on_diagonal(x, y):
+        return None  # No color for the diagonal area
+
+    adjacent_colors = set()
+
+    if point_in_circle1(x, y) and point_in_circle2(x, y):
+        return assign_color("circle1_circle2", adjacent_colors)
+
+    if point_in_circle1(x, y) and point_in_square1(x, y):
+        return assign_color("circle1_square1", adjacent_colors)
+
+    if point_in_circle2(x, y) and point_in_square2(x, y):
+        return assign_color("circle2_square2", adjacent_colors)
+
+    if point_in_circle1(x, y):
+        return assign_color("circle1", adjacent_colors)
+
+    if point_in_circle2(x, y):
+        return assign_color("circle2", adjacent_colors)
+
+    return None  # 圖形外部不塗色
+
+# 繪製掃描點並著色
+def scan_and_draw():
+    for y in range(canvas.height):
+        for x in range(canvas.width):
+            color = get_region_color(x, y)
+            if color:
+                ctx.fillStyle = color
+                ctx.fillRect(x, y, 1, 1)
+
+# 開始掃描和標示
+scan_and_draw()
 </script>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/wEgYSLkaQNw?si=_FGtPeGDFUlhXiZF" title="YouTube video player" width="560"></iframe></p>
 <p>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</p><h1>HW 2</h1>
