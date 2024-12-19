@@ -59,6 +59,7 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/kqyO6zz33ys?si=NeYVoiirXEB_DjDk" title="YouTube video player" width="560"></iframe></p>
 <p>題目三</p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/YuRRHvDSFVA?si=hGikW6YXAfUy8L5y" title="YouTube video player" width="560"></iframe></p>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 <h3>w11_hw</h3>
 <p>題目一</p>
 <p>網站連結:<a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/61c628235870a06becac1f8b7028e229/raw/bd9b4526800592df8d9fba9187f4594f5cc82518/w11_circle_pattern.py">https://mdecp2024.github.io/hw-40831154/content/Brython.html</a></p>
@@ -223,7 +224,37 @@ def scan_and_draw():
 scan_and_draw()
 </script>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/wEgYSLkaQNw?si=_FGtPeGDFUlhXiZF" title="YouTube video player" width="560"></iframe></p>
-<p>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</p><h1>HW 2</h1>
+<p>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</p>
+<h3>w15</h3>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/0020b72420f88c9b37a8751b30a6bb1a/raw/2733ee7f5c040ed0fe26e71d7c1daeaf5f8f53aa/w15_brython.py">從 1 累加到 100</a></p>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/0020b72420f88c9b37a8751b30a6bb1a/raw/0957943ab4edf74c7e0b5c0117600905cd926cc8/w15_addto.py">addto</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def addto(start, end):
+</pre>
+<p>定義一個名為 <code>addto</code> 的函數，它有兩個參數：<code>start</code> 和 <code>end</code>，分別表示累加的起始值和結束值。</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        total += i
+</pre>
+<p>在每次迴圈中，將變數 <code>i</code>（目前的數字）加到 <code>total</code> 上，這樣就會逐步累加起來。</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">    return total
+</pre>
+<p>當所有迴圈執行完畢後，返回 <code>total</code>，這就是從 <code>start</code> 到 <code>end</code> 所有整數的總和。</p>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/0020b72420f88c9b37a8751b30a6bb1a/raw/6e7a8ada7ebf8b1d0641b50c5f808e3b93b823f0/w15_add_only_even.py">add_only_even</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">       if i % 2 == 0:
+</pre>
+<p>在迴圈中檢查每個數字 <code>i</code> 是否為偶數。使用 <code>i % 2 == 0</code> 來檢查 <code>i</code> 除以 2 的餘數是否為 0，即是偶數。</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">result = add_only_even(1, 100)
+</pre>
+<p>呼叫 <code>add_only_even</code> 函式，並傳入 <code>1</code> 和 <code>100</code> 作為參數，計算從 1 到 100 的所有偶數的總和，並將結果儲存到變數 <code>result</code>。</p>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/0020b72420f88c9b37a8751b30a6bb1a/raw/add04f9b564354d7f370a5909b3f6e44df7dafcd/w15_add_avoid_8.py">add_avoid_8</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">        if '8' in str(i):
+            continue
+</pre>
+<p>這一行檢查當前的數字 <code>i</code> 是否包含數字 '8'。首先將 <code>i</code> 轉換成字串（<code>str(i)</code>），然後檢查字串中是否含有字符 '8'。如果包含 '8'，則使用 <code>continue</code> 跳過當前迴圈，跳到下一個數字，這樣就不會將此數字加到總和中。</p>
+<p></p>
+<p></p><h1>HW 2</h1>
+=======
+<h3>w11</h3>
+<h3>w13</h3><h1>HW 2</h1>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 16c4988 (新增w13)
 <h4>主題: Python 的數列、判斷式與重複迴圈 (20%)<span style="background-color: #ffff99;"><br/></span></h4>
 <p style="padding-left: 30px;">Python 課程教材: <a href="https://www.learnpythonwithjupyter.com/">https://www.learnpythonwithjupyter.com/</a> - PART 2 and Part 3</p>
 <hr/>
