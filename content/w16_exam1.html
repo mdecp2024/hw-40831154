@@ -130,7 +130,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13_hw.html'>w13_hw</a><li><a href='w15.html'>w15</a></li></li></ul></ul><li class='has-children'><a href='HW 2-1.html'>HW 2-1</a><ul class='dropdown'><li class='has-children'><a href='w11.html'>w11</a><ul class='dropdown'><li><a href='w13.html'>w13</a></li></li></ul></ul><li class='has-children'><a href='HW 2-2.html'>HW 2-2</a><ul class='dropdown'><li><a href='HW 2 Exam.html'>HW 2 Exam</a></li></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
+                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13_hw.html'>w13_hw</a><li><a href='w15.html'>w15</a></li></li></ul></ul><li class='has-children'><a href='HW 2.html'>HW 2</a><ul class='dropdown'><li class='has-children'><a href='HW 2 Exam.html'>HW 2 Exam</a><ul class='dropdown'><li><a href='w16_exam1.html'>w16_exam1</a></li></li></ul></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
                       </ul>
                 </nav>
               </div>
@@ -141,7 +141,109 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w11 << <a href='w11.html'>Previous</a> <a href='HW 2-2.html'>Next</a> >> HW 2-2<br /><h1>w13</h1><br />w11 << <a href='w11.html'>Previous</a> <a href='HW 2-2.html'>Next</a> >> HW 2-2</div>
+    <div id="tipue_search_content">HW 2 Exam << <a href='HW 2 Exam.html'>Previous</a> <a href='HW 3.html'>Next</a> >> HW 3<br /><h1>w16_exam1</h1>
+<p><a href="https://mdecp2024.github.io/hw-40831154/content/Brython.html?src=https://gist.githubusercontent.com/40831154/da1cbafca97f9b78097c22e5e99d649b/raw/d7773dc6cc0be8c634f3831d3e92a1e5c980ccfe/w16%2520%25E5%2585%25AD%25E5%259C%2596%25E5%25BD%25A2%25E6%258E%2592%25E5%2588%2597">anchor</a></p>
+<div id="brython_div1"></div>
+<p><!-- 導入 Brython 程式庫 --></p>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.11.1/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.11.1/brython_stdlib.js"></script>
+<p><!-- 啟動 Brython --></p>
+<script>
+window.onload = function () {
+    brython();
+}
+</script>
+<script type="text/python3">
+from browser import html
+from browser import document as doc
+import math
+
+# 設置畫布
+canvas = html.CANVAS(width=600, height=400)
+doc["brython_div1"] <= canvas
+
+ctx = canvas.getContext("2d")
+
+# 定義原點 (11, 54)
+origin_x = 11
+origin_y = 54
+
+# 繪製 X 軸
+ctx.strokeStyle = "black"
+ctx.lineWidth = 2
+ctx.beginPath()
+ctx.moveTo(origin_x, origin_y)
+ctx.lineTo(canvas.width, origin_y)
+ctx.stroke()
+
+# 繪製 Y 軸
+ctx.beginPath()
+ctx.moveTo(origin_x, origin_y)
+ctx.lineTo(origin_x, canvas.height)
+ctx.stroke()
+
+# 標示原點座標
+ctx.font = "12px Arial"
+ctx.fillStyle = "black"
+ctx.fillText("(11, 54)", origin_x + 5, origin_y - 5)
+
+# 繪製六邊形
+def draw_hexagon(x, y, radius, color):
+    ctx.beginPath()
+    ctx.fillStyle = color
+    for i in range(6):
+        angle = 2 * math.pi * i / 6
+        ctx.lineTo(x + radius * math.cos(angle), y + radius * math.sin(angle))
+    ctx.closePath()
+    ctx.fill()
+
+# 繪製三角形
+def draw_triangle(x1, y1, x2, y2, x3, y3, color):
+    ctx.beginPath()
+    ctx.fillStyle = color
+    ctx.moveTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.lineTo(x3, y3)
+    ctx.closePath()
+    ctx.fill()
+
+# 繪製菱形
+def draw_diamond(x, y, width, height, color):
+    ctx.beginPath()
+    ctx.fillStyle = color
+    ctx.moveTo(x, y - height / 2)  # 上點
+    ctx.lineTo(x + width / 2, y)  # 右點
+    ctx.lineTo(x, y + height / 2)  # 下點
+    ctx.lineTo(x - width / 2, y)  # 左點
+    ctx.closePath()
+    ctx.fill()
+
+# 繪製形狀
+# 六邊形 (左起第一個)
+draw_hexagon(60, 100, 30, "orange")  # 中心 (60, 100)
+
+# 菱形 (左起第二個)
+draw_diamond(120, 100, 50, 70, "teal")  # 中心 (130, 100)
+
+# 三角形 (菱形右下，朝上)
+draw_triangle(125, 135, 175, 135, 150, 100, "lightblue")  # 頂點朝上
+
+# 圓形 (左起第三個)
+ctx.fillStyle = "magenta"
+ctx.beginPath()
+ctx.arc(200, 100, 30, 0, 2 * math.pi)  # 圓心 (240, 100)
+ctx.fill()
+
+# 正方形 (左起第四個)
+ctx.fillStyle = "yellow"
+ctx.fillRect(240, 70, 60, 60)  # 左上角 (300, 70)
+
+# 長方形 (左起第五個)
+ctx.fillStyle = "navy"
+ctx.fillRect(310, 90, 100, 30)  # 左上角 (380, 90)
+</script>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/zH8Tiwm9EJs?si=XbgmlfpPjJkHLAsv" title="YouTube video player" width="560"></iframe></p>
+<p>心得:在詢問GPT的時候，菱形跟三角形會無法跟圖片一樣，所以問題出在三角型的座標(x1,y1,x2,y2,x3,y3),1跟2的座標由於相同的 y 座標，形成的底面。3的座標位於底線上方，所形成一個直立（指向上方）的三角形。</p><br />HW 2 Exam << <a href='HW 2 Exam.html'>Previous</a> <a href='HW 3.html'>Next</a> >> HW 3</div>
         
     <!-- footer -->
       <div class="container">

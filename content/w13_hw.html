@@ -130,7 +130,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13_hw.html'>w13_hw</a><li><a href='w15.html'>w15</a></li></li></ul></ul><li class='has-children'><a href='HW 2-1.html'>HW 2-1</a><ul class='dropdown'><li class='has-children'><a href='w11.html'>w11</a><ul class='dropdown'><li><a href='w13.html'>w13</a></li></li></ul></ul><li class='has-children'><a href='HW 2-2.html'>HW 2-2</a><ul class='dropdown'><li><a href='HW 2 Exam.html'>HW 2 Exam</a></li></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
+                     <li><a href='About.html'>About</a><li><a href='Attendance.html'>Attendance</a><li class='has-children'><a href='HW 1.html'>HW 1</a><ul class='dropdown'><li class='has-children'><a href='HW 1 Exam.html'>HW 1 Exam</a><ul class='dropdown'><li><a href='w7.html'>w7</a><li><a href='w9.html'>w9</a><li><a href='w10.html'>w10</a><li><a href='w11_hw.html'>w11_hw</a><li><a href='w12.html'>w12</a><li><a href='w13_hw.html'>w13_hw</a><li><a href='w15.html'>w15</a></li></li></ul></ul><li class='has-children'><a href='HW 2.html'>HW 2</a><ul class='dropdown'><li class='has-children'><a href='HW 2 Exam.html'>HW 2 Exam</a><ul class='dropdown'><li><a href='w16_exam1.html'>w16_exam1</a></li></li></ul></ul><li class='has-children'><a href='HW 3.html'>HW 3</a><ul class='dropdown'><li><a href='HW 3 Exam.html'>HW 3 Exam</a></li></ul><li class='has-children'><a href='HW 4.html'>HW 4</a><ul class='dropdown'><li><a href='HW 4 Exam.html'>HW 4 Exam</a></li></ul><li><a href='Final Report.html'>Final Report</a><li><a href='Brython.html'>Brython</a></li>
                       </ul>
                 </nav>
               </div>
@@ -142,18 +142,18 @@ img.add_border {
           
         </header>
     <div id="tipue_search_content">w12 << <a href='w12.html'>Previous</a> <a href='w15.html'>Next</a> >> w15<br /><h1>w13_hw</h1>
-<p><!-- 導入 brython 程式庫 -->
-<script src="/get_page/cmsimde/static/brython.js"></script>
-<script src="/get_page/cmsimde/static/brython_stdlib.js"></script>
-<!-- 啟動 Brython -->
+<p></p>
+<div id="brython_div1"></div>
+<p><!-- 導入 Brython 程式庫 --></p>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.11.1/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.11.1/brython_stdlib.js"></script>
+<p><!-- 啟動 Brython --></p>
 <script>
-window.onload=function(){
-brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
+window.onload = function () {
+    brython();
 }
 </script>
-</p>
-<div id="brython_div1"></div>
-<script type="text/python">
+<script type="text/python3">
 from browser import html
 from browser import document as doc
 import random
@@ -199,11 +199,15 @@ random.shuffle(colors)
 # 記錄區域顏色
 region_colors = {}
 
-# 分配顏色給每個區域，避免與鄰近區域顏色相同
-def assign_color(region, adjacent_colors):
+def assign_color(region, adjacent_regions):
+    # 取得所有相鄰區域已經使用的顏色
+    adjacent_colors = [region_colors.get(adjacent_region) for adjacent_region in adjacent_regions if region_colors.get(adjacent_region)]
+    
+    # 過濾掉已經被相鄰區域使用的顏色
     available_colors = [color for color in colors if color not in adjacent_colors]
+    
     if region not in region_colors and available_colors:
-        chosen_color = random.choice(available_colors)  # 隨機選擇一個顏色
+        chosen_color = random.choice(available_colors)  # 隨機選擇一個可用顏色
         region_colors[region] = chosen_color
     return region_colors.get(region, None)
 
@@ -238,32 +242,54 @@ def point_on_black_line(x, y):
            point_on_diagonal(x, y)  # The blue diagonal line
 
 # 根據區域屬性決定顏色
+def assign_color(region, adjacent_regions):
+    # 取得所有相鄰區域已經使用的顏色
+    adjacent_colors = [region_colors.get(adjacent_region) for adjacent_region in adjacent_regions if region_colors.get(adjacent_region)]
+    
+    # 過濾掉已經被相鄰區域使用的顏色
+    available_colors = [color for color in colors if color not in adjacent_colors]
+    
+    if region not in region_colors and available_colors:
+        chosen_color = random.choice(available_colors)  # 隨機選擇一個可用顏色
+        region_colors[region] = chosen_color
+    return region_colors.get(region, None)
+
 def get_region_color(x, y):
     if point_on_black_line(x, y):
-        return None  # Don't fill colors on black lines
+        return None  # 黑線區域不填充顏色
 
-    # If point is on the blue diagonal, we avoid blue
+    # 如果點在藍色對角線上，避免填充藍色
     if point_on_diagonal(x, y):
-        return None  # No color for the diagonal area
+        return None  # 不為對角線區域上色
 
-    adjacent_colors = set()
+    adjacent_regions = set()
 
+    # 當點同時位於兩個圓形區域重疊時
     if point_in_circle1(x, y) and point_in_circle2(x, y):
-        return assign_color("circle1_circle2", adjacent_colors)
+        adjacent_regions.add("circle1_circle2")
+        return assign_color("circle1_circle2", adjacent_regions)
 
+    # 當點同時位於圓形1與矩形1重疊區域時
     if point_in_circle1(x, y) and point_in_square1(x, y):
-        return assign_color("circle1_square1", adjacent_colors)
+        adjacent_regions.add("circle1_square1")
+        return assign_color("circle1_square1", adjacent_regions)
 
+    # 當點同時位於圓形2與矩形2重疊區域時
     if point_in_circle2(x, y) and point_in_square2(x, y):
-        return assign_color("circle2_square2", adjacent_colors)
+        adjacent_regions.add("circle2_square2")
+        return assign_color("circle2_square2", adjacent_regions)
 
+    # 當點位於圓形1區域時
     if point_in_circle1(x, y):
-        return assign_color("circle1", adjacent_colors)
+        adjacent_regions.add("circle1")
+        return assign_color("circle1", adjacent_regions)
 
+    # 當點位於圓形2區域時
     if point_in_circle2(x, y):
-        return assign_color("circle2", adjacent_colors)
+        adjacent_regions.add("circle2")
+        return assign_color("circle2", adjacent_regions)
 
-    return None  # 圖形外部不塗色
+    return None  # 如果不在任何指定的圖形內則不填色
 
 # 繪製掃描點並著色
 def scan_and_draw():
@@ -277,9 +303,9 @@ def scan_and_draw():
 # 開始掃描和標示
 scan_and_draw()
 </script>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/wEgYSLkaQNw?si=_FGtPeGDFUlhXiZF" title="YouTube video player" width="560"></iframe></p>
-<p>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</p>
-<br />w12 << <a href='w12.html'>Previous</a> <a href='w15.html'>Next</a> >> w15</div>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/wEgYSLkaQNw?si=UvXKTw5TlNRBiqFJ" title="YouTube video player" width="560"></iframe></p>
+<p><span>心得:GPT詢問中，無法尋得想要的答案，可能是我詢問得不夠準確。</span></p>
+<p></p><br />w12 << <a href='w12.html'>Previous</a> <a href='w15.html'>Next</a> >> w15</div>
         
     <!-- footer -->
       <div class="container">
